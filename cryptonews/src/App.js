@@ -217,9 +217,8 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>CryptoNews</h1>
+        <h1>Crypto News & Data</h1>
       </header>
-
       <div id="myHeader">
 
         {/************ PRICE TICKERS ************/}
