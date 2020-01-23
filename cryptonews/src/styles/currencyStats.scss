@@ -1,0 +1,113 @@
+@import 'variables';
+
+.currency-stats-container-up {
+    color: rgba(255, 255, 255, 0.753);
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    text-align: left;
+    background-image: linear-gradient(to right, rgba(10, 133, 16, 0.753) , rgba(39, 39, 39, 0));
+    
+    
+    @media(min-width: 650px) {
+        // max-width: 100%;
+        
+    }
+    @media(min-width: 650px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+.butt {
+    color: rgba(255, 255, 255, 0.753);
+    margin: 0 auto;
+    width: 100%;
+    // padding: 0 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    background-image: linear-gradient(to right, $Blue, rgba(39, 39, 39, 0));
+    text-align: left;
+    
+    @media(min-width: 650px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+.currency-stats-container {
+    color: rgba(255, 255, 255, 0.753);
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    background-image: linear-gradient(to right, #000, rgba(39, 39, 39, 0));
+    text-align: left;
+
+    @media(min-width: 1350px) {
+        // width: 96%;
+    }
+    @media(min-width: 650px) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+.cont {
+        display: flex;
+        justify-content: space-between;
+    }
+    h3 {
+        font-size: 1rem;
+
+        span {
+            color: rgb(206, 206, 206);
+            background-color: #000;
+            margin-right: .2rem;
+            padding: 0 .2rem;
+        }
+    }
+    .currency-logo {
+        width: 5rem;
+        margin: .80rem .5rem 0 0;
+    }
+    .stats-header {
+        display: flex;
+        // height: 6rem;
+
+        div {
+            margin-left: .5rem;
+            h1 {
+                margin: 1rem 0 0 0;
+            }
+            h3 {
+                margin: 0;
+            }
+        }
+    }
+    .currency-stats {
+        margin: 0 auto;
+        margin-right: 4rem;
+        display: flex;
+        flex-flow: wrap;
+        justify-content: space-between;
+        width: 80%;
+        @media(min-width: 650px) {
+            margin-right: 6rem;
+        }
+
+        h3 {
+            margin-right: .5rem;
+
+            span {
+                color: grey;
+            }
+        }
+        
+    }

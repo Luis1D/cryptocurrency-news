@@ -1,0 +1,49 @@
+@import 'article';
+@import 'articleFilters';
+@import 'chart';
+@import 'priceTickers';
+@import 'currencyStats';
+@import 'variables';
+
+.App {
+  text-align: center;
+}
+container
+// GLOBAL
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    text-align: center;
+    font-family: sans-serif;
+    background-color: rgb(20, 19, 24);
+}
+header {
+    width: 97%;
+    height: 1rem;
+    padding: .5rem 0 2rem 1rem;
+    text-align: center;
+    z-index: 10;
+    background-color: #0005;
+    
+    @media(max-width: 415px) {
+        border: 1px solid red;
+        width: 50%;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: rgb(230, 230, 230);
+    }
+}
+h1 {
+    color: #fff;
+    font-size: 3rem;
+}
+a {
+    color: rgba(255, 255, 255, 0.904);
+    text-decoration: none;
+}
+
