@@ -11,8 +11,16 @@ function App() {
   const [currentFilter, setCurrentFilter] = useState("ALL");
   const [ticker, setTicker] = useState();
   const [currentCurrency, setCurrentCurrency] = useState({
-      "latest": { name: "LATEST", price: "", lastDay: "", supply: "", high: "", low: "", cap: "", volume: "" }
+      "latest": { name: "BTC", price: "", lastDay: "", supply: "", high: "", low: "", cap: "", volume: "" }
   });
+
+  // if (ticker) {
+  //   const myCoin = ticker.RAW.forEach(coin => console.log("COIN",coin))
+  //   console.log("TICKER:",myCoin)
+  //   // console.log("TICKER: ",ticker.RAW)
+  // } else {
+  //   console.log("UNDEFINED")
+  // }
 
   useEffect(() => {
     axios.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
@@ -217,12 +225,19 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Crypto News & Data</h1>
+        <div className="logo-wrapper">
+          {/* <img src={ require('./assets/cnd.svg') } alt="logo" /> */}
+          {/* <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
+          <h1>Crypto News & Data</h1>
+        </div>
+        <div className="menu-wrapper">
+          {/* <img src={ require('./assets/menu.svg') } alt="menu" /> */}
+          {/* <div>Icons made by <a href="https://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
+        </div>
       </header>
       <div id="myHeader">
-
         {/************ PRICE TICKERS ************/}
-        <div className="price-ticker-container">
+        {/* <div className="price-ticker-container">
           {
             ticker ? 
             <section id="filters-container">
@@ -238,11 +253,11 @@ function App() {
             </section>
               : null
           }
-        </div>
+        </div> */}
         </div>
 
-      {/*********** ARTICLE SECTION ************/}
-      {articleCollection ?
+      {/* ********** ARTICLE SECTION ************/}
+      {/* {articleCollection ?
       <div className="article-container">
         <div className={ checkPriceCard() }>
           <div className="stats-header">
@@ -252,7 +267,7 @@ function App() {
               <h3>{ currentCurrency.latest.price }</h3>
             </div>
           </div>
-          { currentCurrency.latest.price !== "" ?
+          { currentCurrency.latest.price == "" ?
           <div>
             <div className="cont">
               <div className="currency-stats">
@@ -268,9 +283,11 @@ function App() {
               </div>
 
             : null
-          }
-        </div>
-  
+          } */}
+        {/* </div> */}
+        <Chart 
+          currentCurrency={ currentCurrency }
+        />
         { latestArticle ? articleCollection.map(article => {
           return <Article 
                   latestArticle = {latestArticle.id}
@@ -284,9 +301,9 @@ function App() {
                   key={ article.id }
                 />
         }) : null}
-        </div>
+        {/* </div> */}
       : 
-        // LOADING...
+        {/* // LOADING... */}
         <div className="loading-page">
           <h2>LOADING...</h2>
         </div>}

@@ -1,13 +1,9 @@
 
 .price-ticker-container {
     width: 100%;
+    border: 1px solid red;
     &:hover {
         cursor: pointer;
-    }
-
-    @media(max-width: 415px) {
-        border: 1px solid red;
-        width: 50%;
     }
 
     ul {
@@ -20,16 +16,17 @@
     align-items: center;
     height: 4rem;
 
+    @media(max-width: 415px) {
+        border: 1px solid red;
+        width: 100%;
+    }
     @media(min-width: 840px) {
         max-width: 50rem;
         margin: 0 auto;
     }
-
         li {
             list-style: none;
             padding: .30rem .25rem .30rem 0;
-            
-            
         }
         .ticker-symbol {
             color: #fff;

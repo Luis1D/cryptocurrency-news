@@ -21,20 +21,15 @@ const Article = props => {
     const previewArticle = () => {
         const id = props.id;
         setPreview({ title: props.preview, id: id });
-        console.log("BEFORE: ",preview.title)
         if(preview.title.length > 0) {
-            console.log("CLOSE");
             setOpen("closed");
             setPreview({
                 title: "",
                 id: ""
             });
         } else {
-            console.log("OPEN")
             setOpen("opened");
         }
-        console.log("AFTER: ",preview.title)
-        // console.log("FIRED: ", props.source, id)
     }
 
     return (
