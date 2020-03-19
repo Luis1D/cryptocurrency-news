@@ -1,3 +1,53 @@
 .chart {
     width: 90%;
+    height: 28rem;
+    margin: 0 auto;
+    padding: 1rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    @media(min-width: 750px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-gap: 1rem;
+        max-width: 80rem;
+        height: 15rem;
+    }
+    .chart-container {
+        width: 12rem;
+        height: 100%;        
+    }
+    .container {
+        border-radius: .5rem;
+        background-color: rgba(0, 0, 0, 0.205);
+        width: 95%;
+        height: 5rem;
+        padding: 1rem 1rem .25rem 1rem;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #000;
+
+        @media(min-width: 750px) {
+            width: 80%;
+        }
+        @media(min-width: 1500px) {
+            width: 100%;
+        }
+    }
+    .stats-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        span {
+            font-size: 1.2rem;
+            color: rgb(201, 201, 201);
+        }
+    }
+    h1 {
+        font-size: 1.2rem;
+        width: 2rem;
+        height: 1.5rem;
+    }
 }

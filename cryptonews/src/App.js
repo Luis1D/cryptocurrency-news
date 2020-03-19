@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Article from './components/Article.js';
-import Chart from './components/Chart';
+import ChartComp from './components/ChartComp';
 import './styles/app.scss';
 
 function App() {
@@ -228,7 +228,7 @@ function App() {
         <div className="logo-wrapper">
           {/* <img src={ require('./assets/cnd.svg') } alt="logo" /> */}
           {/* <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */}
-          <h1>Crypto News & Data</h1>
+          <h1>CND</h1>
         </div>
         <div className="menu-wrapper">
           {/* <img src={ require('./assets/menu.svg') } alt="menu" /> */}
@@ -285,7 +285,7 @@ function App() {
             : null
           } */}
         {/* </div> */}
-        <Chart 
+        <ChartComp 
           currentCurrency={ currentCurrency }
         />
         { latestArticle ? articleCollection.map(article => {

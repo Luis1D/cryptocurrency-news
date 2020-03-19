@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Chart from "chart.js";
 import { Line } from 'react-chartjs-2';
 
-const Chart = props => {
+Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0)";
+Chart.defaults.global.defaultColor = "rgb(0, 0, 0)";
+Chart.defaults.global.elements.line.tension = 0;
+// Chart.defaults.global.tooltips.enabled = false;
+console.log(Chart.defaults)
+const ChartComp = props => {
+    const [BTCprice, setBTCPrice] = useState();
     const [BTCdates, setBTCDates] = useState([]);
     const [BTCCloseing, setBTCClosing] = useState([]);
     const [chartBTC, setBTCChart] = useState({
@@ -15,6 +22,7 @@ const Chart = props => {
             }]
         }
     })
+    const [ETHprice, setETHPrice] = useState();
     const [ETHdates, setETHDates] = useState([]);
     const [ETHCloseing, setETHClosing] = useState([]);
     const [chartETH, setETHChart] = useState({
@@ -27,6 +35,7 @@ const Chart = props => {
             }]
         }
     })
+    const [LTCprice, setLTCPrice] = useState();
     const [LTCdates, setLTCDates] = useState([]);
     const [LTCCloseing, setLTCClosing] = useState([]);
     const [chartLTC, setLTCChart] = useState({
@@ -39,6 +48,7 @@ const Chart = props => {
             }]
         }
     })
+    const [XRPprice, setXRPPrice] = useState();
     const [XRPdates, setXRPDates] = useState([]);
     const [XRPCloseing, setXRPClosing] = useState([]);
     const [chartXRP, setXRPChart] = useState({
@@ -53,30 +63,47 @@ const Chart = props => {
     })
     const [options] = useState({
         options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
             yAxes: [{
+                ticks: { display: false },
                 gridLines: {
-                    display: false
+                    display: true
                 }
             }],
             xAxes: [{
+                ticks: { display: false },
                 gridLines: {
-                    display: false
+                    display: true
                 }
-            }]
+            }],
+        },
+        legend: {
+             display: false,
+        },
+        layout: {
+            padding: {
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0
+            }
         }
     }
     })
-    useEffect(() => {           
+    useEffect(() => {        
+          
             setBTCChart({
                 chartBTC: {
                     labels: BTCdates,
                     datasets: [{
                         label: 'Price',
                         data: BTCCloseing,
-                        backgroundColor: "#fff1",
-                        pointBackgroundColor: "#fff9",
-                    }]
+                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        pointBackgroundColor: "rgba(0, 0, 0, 0)",
+                        pointBorderColor: "rgba(0, 0, 0, 0)",
+                    }],
                 }
             })
             setETHChart({
@@ -85,8 +112,9 @@ const Chart = props => {
                     datasets: [{
                         label: 'Price',
                         data: ETHCloseing,
-                        backgroundColor: "#fff1",
-                        pointBackgroundColor: "#fff9",
+                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        pointBackgroundColor: "rgba(0, 0, 0, 0)",
+                        pointBorderColor: "rgba(0, 0, 0, 0)",
                     }]
                 }
             })
@@ -96,8 +124,9 @@ const Chart = props => {
                     datasets: [{
                         label: 'Price',
                         data: LTCCloseing,
-                        backgroundColor: "#fff1",
-                        pointBackgroundColor: "#fff9",
+                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        pointBackgroundColor: "rgba(0, 0, 0, 0)",
+                        pointBorderColor: "rgba(0, 0, 0, 0)",
                     }]
                 }
             })
@@ -107,8 +136,9 @@ const Chart = props => {
                     datasets: [{
                         label: 'Price',
                         data: XRPCloseing,
-                        backgroundColor: "#fff1",
-                        pointBackgroundColor: "#fff9",
+                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        pointBackgroundColor: "rgba(0, 0, 0, 0)",
+                        pointBorderColor: "rgba(0, 0, 0, 0)",
                     }]
                 }
             })
@@ -119,6 +149,8 @@ const Chart = props => {
             axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD&limit=10`)
                 .then(res => {
                     const data = res.data.Data.Data;
+                    const latestPrice = Math.floor(data[10].close);
+                    setBTCPrice(latestPrice);
                     getBTCData(data)
                 })
                 .catch(err => {
@@ -127,6 +159,8 @@ const Chart = props => {
             axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=ETH&tsym=USD&limit=10`)
                 .then(res => {
                     const data = res.data.Data.Data;
+                    const latestPrice = Math.floor(data[10].close);
+                    setETHPrice(latestPrice);
                     getETHData(data)
                 })
                 .catch(err => {
@@ -135,6 +169,8 @@ const Chart = props => {
             axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=LTC&tsym=USD&limit=10`)
                 .then(res => {
                     const data = res.data.Data.Data;
+                    const latestPrice = Math.floor(data[10].close);
+                    setLTCPrice(latestPrice);
                     getLTCData(data)
                 })
                 .catch(err => {
@@ -143,6 +179,8 @@ const Chart = props => {
             axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=XRP&tsym=USD&limit=10`)
                 .then(res => {
                     const data = res.data.Data.Data;
+                    const latestPrice = data[10].close;
+                    setXRPPrice(latestPrice);
                     getXRPData(data)
                 })
                 .catch(err => {
@@ -262,40 +300,72 @@ const Chart = props => {
 
     return (
         <div className="chart">
-        <h1>BTC</h1>
-        { 
-        chartBTC.chartBTC.labels.length !== 0 ? 
-            <Line 
-                data={ chartBTC.chartBTC }
-                options= { options.options }
-            /> : null
-        } 
-        <h1>ETH</h1>
-        { 
-        chartETH.chartETH.labels.length !== 0 ? 
-            <Line 
-                data={ chartETH.chartETH }
-                options= { options.options }
-            /> : null
-        } 
-        <h1>LTC</h1>
-        { 
-        chartLTC.chartLTC.labels.length !== 0 ? 
-            <Line 
-                data={ chartLTC.chartLTC }
-                options= { options.options }
-            /> : null
-        }
-        <h1>XRP</h1>
-        { 
-        chartXRP.chartXRP.labels.length !== 0 ? 
-            <Line 
-                data={ chartXRP.chartXRP }
-                options= { options.options }
-            /> : null
-        }  
+            <div className="container">
+                <div className="stats-container">
+                    <h1>BTC</h1>
+                    <span>$ { BTCprice }</span>
+                </div>
+                <div className="chart-container">
+                    { 
+                    BTCCloseing.length !== 0 ? 
+                        <Line 
+                            data={ chartBTC.chartBTC }
+                            options= { options.options }
+                            className="chart-item"
+                        /> : null
+                    } 
+                </div>
+            </div>
+            <div className="container">
+                <div className="stats-container">
+                    <h1>ETH</h1>
+                    <span>$ { ETHprice }</span>
+                </div>
+                <div className="chart-container">
+                    { 
+                    chartETH.chartETH.labels.length !== 0 ? 
+                        <Line 
+                            data={ chartETH.chartETH }
+                            options= { options.options }
+                            className="chart-item"
+                        /> : null
+                    } 
+                </div>
+            </div>
+            <div className="container">
+                <div className="stats-container">
+                    <h1>LTC</h1>
+                    <span>$ { LTCprice }</span>
+                </div>
+                <div className="chart-container">
+                    { 
+                    chartLTC.chartLTC.labels.length !== 0 ? 
+                        <Line 
+                            data={ chartLTC.chartLTC }
+                            options= { options.options }
+                            className="chart-item"
+                        /> : null
+                    }
+                </div>
+            </div>
+            <div className="container">
+                <div className="stats-container">
+                    <h1>XRP</h1>
+                    <span>$ { XRPprice }</span>
+                </div>
+                <div className="chart-container">
+                    { 
+                    chartXRP.chartXRP.labels.length !== 0 ? 
+                        <Line 
+                            data={ chartXRP.chartXRP }
+                            options= { options.options }
+                            className="chart-item"
+                        /> : null
+                    }  
+                </div>
+            </div>
         </div>
     )
 }
 
-export default Chart;
+export default ChartComp;
