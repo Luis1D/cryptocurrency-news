@@ -16,38 +16,55 @@
     }
     .chart-container {
         width: 12rem;
-        height: 100%;        
+        height: 100%;       
     }
     .container {
         border-radius: .5rem;
         background-color: rgba(0, 0, 0, 0.205);
         width: 95%;
-        height: 5rem;
-        padding: 1rem 1rem .25rem 1rem;
+        height: 6rem;
+        padding: 0rem 1rem .25rem 1rem;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         border: 1px solid #000;
-
         @media(min-width: 750px) {
             width: 80%;
         }
-        @media(min-width: 1500px) {
-            width: 100%;
+        .current-price {
+            font-size: 1.2rem;
+            color: rgb(201, 201, 201);
+            width: 10rem;
+            text-align: center;
+            align-self: center;
+            width: 7rem;
         }
     }
     .stats-container {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        span {
-            font-size: 1.2rem;
-            color: rgb(201, 201, 201);
+        width: 3rem;
+        .coin-logo {
+            width: 2rem;
         }
     }
     h1 {
         font-size: 1.2rem;
         width: 2rem;
         height: 1.5rem;
+    }
+    .arrow {
+        width: 2rem;
+        height: 2rem;
+    }
+    .up {
+        transform: rotate(180deg);
+    }
+    .price-container {
+        width: 7rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }

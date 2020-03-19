@@ -7,8 +7,68 @@ Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0)";
 Chart.defaults.global.defaultColor = "rgb(0, 0, 0)";
 Chart.defaults.global.elements.line.tension = 0;
 // Chart.defaults.global.tooltips.enabled = false;
-console.log(Chart.defaults)
+
 const ChartComp = props => {
+    const priceData = props.priceData;
+    const [BTCcheck, setBTCcheck] = useState();
+    const [ETHcheck, setETHcheck] = useState();
+    const [LTCcheck, setLTCcheck] = useState();
+    const [XRPcheck, setXRPcheck] = useState();
+
+    const comparePriceData = (stats, coin) => {
+        const currentPrice = stats.PRICE;
+        const openPrice = stats.OPENDAY;
+        switch(coin) {
+            case "BTC":
+                if (currentPrice < openPrice) {
+                    setBTCcheck("DOWN");
+                    return;
+                } else if (currentPrice > openPrice) {
+                    setBTCcheck("UP");
+                    return;
+                } else {
+                    return null;
+                }
+                break;
+            case "ETH":
+                if (currentPrice < openPrice) {
+                    setETHcheck("DOWN");
+                    return;
+                } else if (currentPrice > openPrice) {
+                    setETHcheck("UP");
+                    return;
+                } else {
+                    return null;
+                }
+                break;
+            case "LTC":
+                if (currentPrice < openPrice) {
+                    setLTCcheck("DOWN");
+                    return;
+                } else if (currentPrice > openPrice) {
+                    setLTCcheck("UP");
+                    return;
+                } else {
+                    return null;
+                }
+                break;
+            case "XRP":
+                if (currentPrice < openPrice) {
+                    setXRPcheck("DOWN");
+                    return;
+                } else if (currentPrice > openPrice) {
+                    setXRPcheck("UP");
+                    return;
+                } else {
+                    return null;
+                }
+                break;
+            default:
+                break;
+        };        
+        return;
+    }
+
     const [BTCprice, setBTCPrice] = useState();
     const [BTCdates, setBTCDates] = useState([]);
     const [BTCCloseing, setBTCClosing] = useState([]);
@@ -93,7 +153,10 @@ const ChartComp = props => {
     }
     })
     useEffect(() => {        
-          
+            comparePriceData(priceData.BTC.USD,"BTC");
+            comparePriceData(priceData.ETH.USD,"ETH")
+            comparePriceData(priceData.LTC.USD,"LTC")
+            comparePriceData(priceData.XRP.USD,"XRP")
             setBTCChart({
                 chartBTC: {
                     labels: BTCdates,
@@ -143,7 +206,7 @@ const ChartComp = props => {
                 }
             })
             
-    },[BTCdates, BTCCloseing, ETHdates, ETHCloseing, LTCdates, LTCCloseing, XRPdates, XRPCloseing])
+    },[BTCdates, BTCCloseing, ETHdates, ETHCloseing, LTCdates, LTCCloseing, XRPdates, XRPCloseing, priceData.BTC.USD, priceData.ETH.USD, priceData.LTC.USD, priceData.XRP.USD,])
 
     useEffect(() => {
             axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD&limit=10`)
@@ -303,7 +366,17 @@ const ChartComp = props => {
             <div className="container">
                 <div className="stats-container">
                     <h1>BTC</h1>
-                    <span>$ { BTCprice }</span>
+                    <img
+                        className="coin-logo"
+                        src={ require('../assets/bitcoin.svg') }
+                        alt="Coin Logo"
+                    />
+                </div>
+                <div className="price-container">
+                    {
+                        BTCcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
+                    }
+                    <span className="current-price">$ { BTCprice }</span>       
                 </div>
                 <div className="chart-container">
                     { 
@@ -319,7 +392,17 @@ const ChartComp = props => {
             <div className="container">
                 <div className="stats-container">
                     <h1>ETH</h1>
-                    <span>$ { ETHprice }</span>
+                    <img
+                        className="coin-logo"
+                        src={ require('../assets/ethereum.svg') }
+                        alt="Coin Logo"
+                    />
+                </div>
+                <div className="price-container">
+                    {
+                        ETHcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
+                    }      
+                    <span className="current-price">$ { ETHprice }</span>
                 </div>
                 <div className="chart-container">
                     { 
@@ -335,7 +418,17 @@ const ChartComp = props => {
             <div className="container">
                 <div className="stats-container">
                     <h1>LTC</h1>
-                    <span>$ { LTCprice }</span>
+                    <img
+                        className="coin-logo"
+                        src={ require('../assets/litecoin.svg') }
+                        alt="Coin Logo"
+                    />
+                </div>
+                <div className="price-container">
+                    {
+                        LTCcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
+                    }       
+                    <span className="current-price">$ { LTCprice }</span>
                 </div>
                 <div className="chart-container">
                     { 
@@ -351,7 +444,17 @@ const ChartComp = props => {
             <div className="container">
                 <div className="stats-container">
                     <h1>XRP</h1>
-                    <span>$ { XRPprice }</span>
+                    <img
+                        className="coin-logo"
+                        src={ require('../assets/ripple.svg') }
+                        alt="Coin Logo"
+                    />
+                </div>
+                <div className="price-container">
+                    {
+                        XRPcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
+                    }       
+                    <span className="current-price">$ { XRPprice }</span>
                 </div>
                 <div className="chart-container">
                     { 
