@@ -163,7 +163,8 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: BTCCloseing,
-                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        // backgroundColor: "rgba(96, 170, 255,.75)",
+                        borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
                     }],
@@ -175,7 +176,8 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: ETHCloseing,
-                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        // backgroundColor: "rgba(96, 170, 255,.75)",
+                        borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
                     }]
@@ -187,7 +189,8 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: LTCCloseing,
-                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        // backgroundColor: "rgba(96, 170, 255,.75)",
+                        borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
                     }]
@@ -199,7 +202,8 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: XRPCloseing,
-                        backgroundColor: "rgba(96, 170, 255,.75)",
+                        // backgroundColor: "rgba(96, 170, 255,.75)",
+                        borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
                     }]
