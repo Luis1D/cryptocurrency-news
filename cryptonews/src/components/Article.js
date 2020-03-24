@@ -53,8 +53,11 @@ const Article = props => {
 
             {preview ?
                 <div className={ open }>
-                    <p className="preview-text">> { preview.title }</p>
-                    <a href={ props.url } target="_blank" rel="noopener noreferrer">Read More...</a>
+                    <div className="preview-container">
+                        <h1 className="preview-header">Preview</h1>
+                        <p className="preview-text">> { preview.title }</p>
+                        <a href={ props.url } target="_blank" rel="noopener noreferrer">Read More...</a>
+                    </div>
                 </div>
                     : null
                 }

@@ -51,33 +51,39 @@ function App() {
           <h1>CND</h1>
         </div>
       </header>
-      <div id="myHeader">
-        </div>
+
 
         {
           priceData ? <ChartComp 
-          priceData={ priceData }
-        /> : <span>Loading...</span>
+            priceData={ priceData }
+          /> :  <img
+                    src={ require('./assets/Ellipsis-3.4s-167px.svg') }
+                    alt="Loading..."
+                    className="loading-spinner"
+                />
         }
 
-        { latestArticle ? articleCollection.map(article => {
-          return <Article 
-                  latestArticle = {latestArticle.id}
-                  source={ article.source_info.name }
-                  date={ article.published_on }
-                  title={article.title}
-                  url={ article.guid }  
-                  img={ article.imageurl }
-                  preview={ article.body }
-                  id={ article.id }
-                  key={ article.id }
-                />
-        }) : null}
-      : 
-        {/* // LOADING... */}
-        <div className="loading-page">
-          <h2>LOADING...</h2>
-        </div>}
+          <div className="article-feed">
+            { latestArticle ? articleCollection.map(article => {
+              return <Article 
+                      latestArticle = {latestArticle.id}
+                      source={ article.source_info.name }
+                      date={ article.published_on }
+                      title={article.title}
+                      url={ article.guid }  
+                      img={ article.imageurl }
+                      preview={ article.body }
+                      id={ article.id }
+                      key={ article.id }
+                    />
+            }) : <div className="loading-page">
+                  <img
+                    src={ require('./assets/Ellipsis-3.4s-167px.svg') }
+                    alt="Loading..."
+                    className="loading-spinner"
+                  />
+                </div>}
+          </div>
     </div>
   );
 }
