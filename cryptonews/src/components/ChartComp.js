@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Chart from "chart.js";
 import { Line } from 'react-chartjs-2';
+import useComparePrice from '../func/useComparePrice.js';
 
 Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0)";
 Chart.defaults.global.defaultColor = "rgb(0, 0, 0)";
@@ -10,64 +11,10 @@ Chart.defaults.global.elements.line.tension = 0;
 
 const ChartComp = props => {
     const priceData = props.priceData;
-    const [BTCcheck, setBTCcheck] = useState();
-    const [ETHcheck, setETHcheck] = useState();
-    const [LTCcheck, setLTCcheck] = useState();
-    const [XRPcheck, setXRPcheck] = useState();
-
-    const comparePriceData = (stats, coin) => {
-        const currentPrice = stats.PRICE;
-        const openPrice = stats.OPENDAY;
-        switch(coin) {
-            case "BTC":
-                if (currentPrice < openPrice) {
-                    setBTCcheck("DOWN");
-                    return;
-                } else if (currentPrice > openPrice) {
-                    setBTCcheck("UP");
-                    return;
-                } else {
-                    return null;
-                }
-                break;
-            case "ETH":
-                if (currentPrice < openPrice) {
-                    setETHcheck("DOWN");
-                    return;
-                } else if (currentPrice > openPrice) {
-                    setETHcheck("UP");
-                    return;
-                } else {
-                    return null;
-                }
-                break;
-            case "LTC":
-                if (currentPrice < openPrice) {
-                    setLTCcheck("DOWN");
-                    return;
-                } else if (currentPrice > openPrice) {
-                    setLTCcheck("UP");
-                    return;
-                } else {
-                    return null;
-                }
-                break;
-            case "XRP":
-                if (currentPrice < openPrice) {
-                    setXRPcheck("DOWN");
-                    return;
-                } else if (currentPrice > openPrice) {
-                    setXRPcheck("UP");
-                    return;
-                } else {
-                    return null;
-                }
-                break;
-            default:
-                break;
-        };        
-        return;
-    }
+    const [BTCcheck] = useComparePrice(priceData.BTC.USD,"BTC");
+    const [ETHcheck] = useComparePrice(priceData.ETH.USD,"ETH");
+    const [LTCcheck] = useComparePrice(priceData.LTC.USD,"LTC");
+    const [XRPcheck] = useComparePrice(priceData.XRP.USD,"XRP");
 
     const [BTCprice, setBTCPrice] = useState();
     const [BTCdates, setBTCDates] = useState([]);
@@ -153,17 +100,12 @@ const ChartComp = props => {
     }
     })
     useEffect(() => {        
-            comparePriceData(priceData.BTC.USD,"BTC");
-            comparePriceData(priceData.ETH.USD,"ETH")
-            comparePriceData(priceData.LTC.USD,"LTC")
-            comparePriceData(priceData.XRP.USD,"XRP")
             setBTCChart({
                 chartBTC: {
                     labels: BTCdates,
                     datasets: [{
                         label: 'Price',
                         data: BTCCloseing,
-                        // backgroundColor: "rgba(96, 170, 255,.75)",
                         borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
@@ -176,7 +118,6 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: ETHCloseing,
-                        // backgroundColor: "rgba(96, 170, 255,.75)",
                         borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
@@ -189,7 +130,6 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: LTCCloseing,
-                        // backgroundColor: "rgba(96, 170, 255,.75)",
                         borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",
@@ -202,7 +142,6 @@ const ChartComp = props => {
                     datasets: [{
                         label: 'Price',
                         data: XRPCloseing,
-                        // backgroundColor: "rgba(96, 170, 255,.75)",
                         borderColor: "rgba(96, 170, 255,.75)",
                         pointBackgroundColor: "rgba(0, 0, 0, 0)",
                         pointBorderColor: "rgba(0, 0, 0, 0)",

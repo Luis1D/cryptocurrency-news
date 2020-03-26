@@ -10,6 +10,7 @@ function App() {
   const [priceData, setPriceData] = useState();
 
   useEffect(() => {
+    // GRABS NEWS DATA
     axios.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
       .then(res => {
         const myData = res.data.Data;
@@ -21,11 +22,12 @@ function App() {
           console.log("ERROR: ", err);
       })
 
+    // GRABS PRICE DATA
     axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,ADA&tsyms=USD,EUR')
       .then(res => {
         const myData = res.data.DISPLAY;
+        console.log(myData)
         setPriceData(myData);
-        // console.log("PRICE-DATA:",myData)
       })
       .catch(err => {
         console.log("ERROR: ", err);

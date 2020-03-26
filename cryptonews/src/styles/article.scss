@@ -28,6 +28,9 @@
         height: 3rem; 
         text-align: left;
         margin: 0 auto;
+        background-color: #000;
+        padding-top: 1rem;
+        box-shadow: 0rem -1rem 3rem 0rem #000;
         @media(min-width: 650px) {
             width: 50rem;
         }
@@ -35,6 +38,7 @@
     a {
         padding: .35rem 1rem;
         color: rgb(46, 158, 255);
+        background-color: #000;
         width: 90%;
         margin: 0 auto;
         text-align: center;
@@ -45,16 +49,16 @@
         }
      }
      .preview-text {
-         padding-left: .5rem;
-         background-color: #000;
-         width: 90%;
-         margin: 0 auto;
-         line-height: 2rem;
-         font-size: 1.4rem;
-         font-weight: normal;
-         @media(min-width: 650px) {
-             width: 50rem;
-         }
+        padding-left: .5rem;
+        background-color: #000;
+        width: 90%;
+        margin: 0 auto;
+        line-height: 2rem;
+        font-size: 1.4rem;
+        font-weight: normal;
+        @media(min-width: 650px) {
+            width: 50rem;
+        }
      }
 }
 .closed {
