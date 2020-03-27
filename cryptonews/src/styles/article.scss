@@ -105,6 +105,12 @@
     // @media(min-width: 775px) {
     //     grid-template-columns: 1fr 1fr 1fr;
     // }
+    .loading-page {
+        color: #fff;
+        text-align: center;
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
 }
 .Article {
     color: rgba(255, 255, 255, 0.753);
@@ -164,9 +170,6 @@
     img {
         width: 100%;
     }
-}
-.loading-page {
-    color: rgba(255, 255, 255, 0.753);
 }
 .latest-article {
     display: flex;
