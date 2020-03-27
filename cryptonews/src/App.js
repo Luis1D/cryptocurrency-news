@@ -7,7 +7,17 @@ import './styles/app.scss';
 function App() {
   const [articleCollection, setArticleCollection] = useState();
   const [latestArticle, setLatestArticle] = useState()
+
   const [priceData, setPriceData] = useState();
+  const [BTCprice, setBTCPrice] = useState();
+  const [ETHprice, setETHPrice] = useState();
+  const [LTCprice, setLTCPrice] = useState();
+  const [XRPprice, setXRPPrice] = useState();
+
+  const [BTCpriceFeed, setBTCPriceFeed] = useState();
+  const [ETHpriceFeed, setETHPriceFeed] = useState();
+  const [LTCpriceFeed, setLTCPriceFeed] = useState();
+  const [XRPpriceFeed, setXRPPriceFeed] = useState();
 
   useEffect(() => {
     // GRABS NEWS DATA
@@ -22,7 +32,7 @@ function App() {
           console.log("ERROR: ", err);
       })
 
-    // GRABS PRICE DATA
+    // GRABS CURRENT PRICE DATA
     axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,ADA&tsyms=USD,EUR')
       .then(res => {
         const myData = res.data.DISPLAY;
@@ -32,6 +42,53 @@ function App() {
       .catch(err => {
         console.log("ERROR: ", err);
       })
+
+      // GRABS 24HR PRICE DATA
+    axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD&limit=24`)
+      .then(res => {
+        const data = res.data.Data.Data;
+        const latestPrice = Math.floor(data[24].close);
+        setBTCPrice(latestPrice);
+        setBTCPriceFeed(data);
+        // getBTCData(data)
+        // setCoinHistData(data);
+      })
+      .catch(err => {
+        console.log("ERROR: ", err);
+      })
+    axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=ETH&tsym=USD&limit=24`)
+      .then(res => {
+          const data = res.data.Data.Data;
+          const latestPrice = Math.floor(data[24].close);
+          setETHPrice(latestPrice);
+          setETHPriceFeed(data);
+          // getETHData(data)
+      })
+      .catch(err => {
+          console.log("ERROR: ", err);
+      })
+      axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=LTC&tsym=USD&limit=24`)
+        .then(res => {
+            const data = res.data.Data.Data;
+            const latestPrice = Math.floor(data[24].close);
+            setLTCPrice(latestPrice);
+            setLTCPriceFeed(data);
+            // getLTCData(data)
+        })
+        .catch(err => {
+            console.log("ERROR: ", err);
+        })
+      axios.get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=XRP&tsym=USD&limit=24`)
+        .then(res => {
+            const data = res.data.Data.Data;
+            const latestPrice = data[24].close;
+            setXRPPrice(latestPrice);
+            setXRPPriceFeed(data);
+            // getXRPData(data)
+        })
+        .catch(err => {
+            console.log("ERROR: ", err);
+        })
       // window.onscroll = function() {myFunction()};
   },[]);
 
@@ -57,7 +114,16 @@ function App() {
 
         {
           priceData ? <ChartComp 
-            priceData={ priceData }
+            priceData = { priceData }
+            BTCprice = { BTCprice }
+            ETHprice = { ETHprice }
+            LTCprice = { LTCprice }
+            XRPprice = { XRPprice }
+
+            BTCpriceFeed = { BTCpriceFeed }
+            ETHpriceFeed = { ETHpriceFeed }
+            LTCpriceFeed = { LTCpriceFeed }
+            XRPpriceFeed = { XRPpriceFeed }
           /> :  <img
                     src={ require('./assets/Ellipsis-3.4s-167px.svg') }
                     alt="Loading..."

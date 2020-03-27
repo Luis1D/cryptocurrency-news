@@ -2,36 +2,38 @@ import {useState, useEffect} from 'react';
 
 function useComparePrice(stats, coin) {
     const [check, setCheck] = useState()
-    const sortThroughPrice = (currentPrice, openPrice, coin) => {
+    const sortThroughPrice = (diff, coin) => {
+        let rawDiff = diff.split(' ').splice(1).join();
+        let parsedDiff = parseFloat(rawDiff);
         switch(coin) {
             case "BTC":
-                if (currentPrice < openPrice) {
+                if (parsedDiff < 0) {
                     return setCheck("DOWN");
-                } else if (currentPrice > openPrice) {
+                } else if (parsedDiff > 0) {
                     return setCheck("UP");
                 } else {
                     return setCheck('naww..')
                 }
             case "ETH":
-                if (currentPrice < openPrice) {
+                if (parsedDiff < 0) {
                     return setCheck("DOWN");
-                } else if (currentPrice > openPrice) {
+                } else if (parsedDiff > 0) {
                     return setCheck("UP");
                 } else {
                     return setCheck('naww..')
                 }
             case "LTC":
-                if (currentPrice < openPrice) {
+                if (parsedDiff < 0) {
                     return setCheck("DOWN");
-                } else if (currentPrice > openPrice) {
+                } else if (parsedDiff > 0) {
                     return setCheck("UP");
                 } else {
                     return setCheck('naww..')
                 }
             case "XRP":
-                if (currentPrice < openPrice) {
+                if (parsedDiff < 0) {
                     return setCheck("DOWN");
-                } else if (currentPrice > openPrice) {
+                } else if (parsedDiff > 0) {
                     return setCheck("UP");
                 } else {
                     return setCheck('naww..')
@@ -41,9 +43,8 @@ function useComparePrice(stats, coin) {
         }; 
     }
     useEffect(() => {
-        const currentPrice = stats.PRICE;
-        const openPrice = stats.OPENDAY;
-        sortThroughPrice(currentPrice, openPrice, coin)
+        const diff = stats.CHANGE24HOUR
+        sortThroughPrice(diff, coin)
     }, [stats, coin])  
     return [check, sortThroughPrice];
 }
