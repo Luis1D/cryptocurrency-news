@@ -2,11 +2,14 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Article from './components/Article.js';
 import ChartComp from './components/ChartComp';
+import FeaturedArticles from './components/FeaturedArticles';
+import Footer from './components/Footer';
 import './styles/app.scss';
 
 function App() {
   const [articleCollection, setArticleCollection] = useState();
-  const [latestArticle, setLatestArticle] = useState()
+  const [latestArticle, setLatestArticle] = useState();
+  const [featuredPost, setFeaturedPost] = useState();
 
   const [priceData, setPriceData] = useState();
   const [BTCprice, setBTCPrice] = useState();
@@ -24,9 +27,11 @@ function App() {
     axios.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
       .then(res => {
         const myData = res.data.Data;
-        setArticleCollection(myData);
+        const batchOne = myData.slice(0,4);
+        const batchTwo = myData.slice(5,8);
+        setArticleCollection(batchOne);
+        setFeaturedPost(batchTwo);
         setLatestArticle(myData[0])
-        // console.log("RES: ", myData);
       })
       .catch(err => {
           console.log("ERROR: ", err);
@@ -152,6 +157,12 @@ function App() {
                   />
                 </div>}
           </div>
+          {
+            featuredPost ? <FeaturedArticles 
+              featuredPost = { featuredPost }
+            /> : null
+          }
+          <Footer />
     </div>
   );
 }

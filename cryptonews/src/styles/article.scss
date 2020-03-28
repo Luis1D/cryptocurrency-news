@@ -9,6 +9,7 @@
     line-height: 1.45rem;
     font-weight: lighter;
     position: fixed;
+    z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
@@ -101,6 +102,10 @@
     @media(min-width: 750px) {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media(min-width: 1300px) {
+        width: 80rem;
+        margin: 0 auto;
     }
     // @media(min-width: 775px) {
     //     grid-template-columns: 1fr 1fr 1fr;

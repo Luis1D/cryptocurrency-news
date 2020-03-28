@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Chart from "chart.js";
 import { Line } from 'react-chartjs-2';
 import useComparePrice from '../hooks/useComparePrice.js';
@@ -9,7 +8,7 @@ import useClosingPrice from '../hooks/useClosingPrice.js';
 Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0)";
 Chart.defaults.global.defaultColor = "rgb(0, 0, 0)";
 Chart.defaults.global.elements.line.tension = 0;
-// Chart.defaults.global.tooltips.enabled = false;
+Chart.defaults.global.tooltips.enabled = false;
 
 const ChartComp = props => {
     const priceData = props.priceData;
@@ -17,6 +16,16 @@ const ChartComp = props => {
     const [ETHcheck] = useComparePrice(priceData.ETH.USD,"ETH");
     const [LTCcheck] = useComparePrice(priceData.LTC.USD,"LTC");
     const [XRPcheck] = useComparePrice(priceData.XRP.USD,"XRP");
+
+    const [BTCHistData] = useHistData(props.BTCpriceFeed)
+    const [ETHHistData] = useHistData(props.ETHpriceFeed)
+    const [LTCHistData] = useHistData(props.LTCpriceFeed)
+    const [XRPHistData] = useHistData(props.XRPpriceFeed)
+
+    const [BTCCloseing] = useClosingPrice(props.BTCpriceFeed);
+    const [ETHCloseing] = useClosingPrice(props.ETHpriceFeed);
+    const [LTCCloseing] = useClosingPrice(props.LTCpriceFeed);
+    const [XRPCloseing] = useClosingPrice(props.XRPpriceFeed);
 
     const [chartBTC, setBTCChart] = useState({
         chartBTC: {
@@ -89,15 +98,6 @@ const ChartComp = props => {
         }
     }
     })
-    const [BTCHistData] = useHistData(props.BTCpriceFeed)
-    const [ETHHistData] = useHistData(props.ETHpriceFeed)
-    const [LTCHistData] = useHistData(props.LTCpriceFeed)
-    const [XRPHistData] = useHistData(props.XRPpriceFeed)
-
-    const [BTCCloseing] = useClosingPrice(props.BTCpriceFeed);
-    const [ETHCloseing] = useClosingPrice(props.ETHpriceFeed);
-    const [LTCCloseing] = useClosingPrice(props.LTCpriceFeed);
-    const [XRPCloseing] = useClosingPrice(props.XRPpriceFeed);
 
     useEffect(() => {   
             setBTCChart({
@@ -153,6 +153,7 @@ const ChartComp = props => {
 
     return (
         <div className="chart">
+
             <div className="container">
                 <div className="stats-container">
                     <h1>BTC</h1>
@@ -179,6 +180,7 @@ const ChartComp = props => {
                     } 
                 </div>
             </div>
+            
             <div className="container">
                 <div className="stats-container">
                     <h1>ETH</h1>
@@ -205,6 +207,7 @@ const ChartComp = props => {
                     } 
                 </div>
             </div>
+            
             <div className="container">
                 <div className="stats-container">
                     <h1>LTC</h1>
