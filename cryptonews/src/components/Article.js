@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import articleContext from '../contexts/articleContext';
 
 const Article = props => {
-    
+    const { batchOne, latestArticle } = useContext(articleContext);
     const [preview, setPreview] = useState({
         title: "",
         id: ""
@@ -18,9 +19,9 @@ const Article = props => {
     let minutes = "0" + date.getMinutes();
     let convertedDate = month + '-' + day + '-' + year + ' ' + hours + ':' + minutes.substr(-2);
     
-    const previewArticle = () => {
-        const id = props.id;
-        setPreview({ title: props.preview, id: id });
+    const previewArticle = (preArticle) => {
+        const id = preArticle.id;
+        setPreview({ title: preArticle.body, id: id });
         if(preview.title.length > 0) {
             setOpen("closed");
             setPreview({
@@ -33,34 +34,48 @@ const Article = props => {
     }
 
     return (
-        <div className={ props.latestArticle === props.id ? "latest-article" : "Article"} onClick={ previewArticle }>
-            <div className="article-header">
-                <h2>{ props.source }</h2>
-                <h3>{ convertedDate }</h3>
-            </div>
-            <div className="title-img-container">
-                <div className="container">
-                    <h1 className="article-title">{ props.title }</h1>
-                </div>
-                {
-                    props.latestArticle === props.id ? 
-                    <div className="latest-article-img">
-                        <img src={ props.img } alt="latest"/>
-                    </div>
-                    : null
-                }                
-            </div>
+        <div className="article-feed">
 
-            {preview ?
-                <div className={ open }>
-                    <div className="preview-container">
-                        <h1 className="preview-header">Preview</h1>
-                        <p className="preview-text">> { preview.title }</p>
-                        <a href={ props.url } target="_blank" rel="noopener noreferrer">Read More...</a>
-                    </div>
+            {
+            batchOne ?
+            batchOne.map(article => {
+                return <div className={ latestArticle === article.id ? "latest-article" : "Article"} onClick={ () => previewArticle(article) } key={ article.id }>
+                            <div className="article-header">
+                                <h2>{ article.source_info.name }</h2>
+                                <h3>{ convertedDate }</h3>
+                            </div>
+                            <div className="title-img-container">
+                                <div className="container">
+                                    <h1 className="article-title">{ article.title }</h1>
+                                </div>
+                                {
+                                    latestArticle === article.id ? 
+                                    <div className="latest-article-img">
+                                        <img src={ article.imageurl } alt="latest"/>
+                                    </div>
+                                    : null
+                                }                
+                            </div>
+
+                            {
+                                preview ?
+                                    <div className={ open }>
+                                        <div className="preview-container">
+                                            <h1 className="preview-header">Preview</h1>
+                                            <p className="preview-text">> { preview.title }</p>
+                                            <a href={ article.guid } target="_blank" rel="noopener noreferrer">Read More...</a>
+                                        </div>
+                                    </div> : null
+                            }
                 </div>
-                    : null
-                }
+            }) : <div className="loading-page">
+                  <img
+                    src={ require('../assets/Ellipsis-3.4s-167px.svg') }
+                    alt="Loading..."
+                    className="loading-spinner"
+                  />
+                </div>}
+            }
         </div>
     )
 }

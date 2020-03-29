@@ -34,7 +34,7 @@ function useHistData(coin) {
     useEffect(() => {
         loopCoinData(coin);
     }, [coin])
-    return [coinDates];
+    return [coinDates, setCoinDates];
 }
 
 export default useHistData;

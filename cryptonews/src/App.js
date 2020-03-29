@@ -1,13 +1,18 @@
 import React, {useState, useEffect} from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Header from './components/Header.js';
 import Article from './components/Article.js';
 import ChartComp from './components/ChartComp';
 import FeaturedArticles from './components/FeaturedArticles';
 import Footer from './components/Footer';
+import priceContext from './contexts/priceContext';
+import articleContext from './contexts/articleContext';
+import priceFeedContext from './contexts/priceFeedContext';
 import './styles/app.scss';
 
 function App() {
-  const [articleCollection, setArticleCollection] = useState();
+  const [batchOne, setBatchOne] = useState();
   const [latestArticle, setLatestArticle] = useState();
   const [featuredPost, setFeaturedPost] = useState();
 
@@ -27,9 +32,9 @@ function App() {
     axios.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
       .then(res => {
         const myData = res.data.Data;
-        const batchOne = myData.slice(0,4);
+        const batchOneArt = myData.slice(0,4);
         const batchTwo = myData.slice(5,8);
-        setArticleCollection(batchOne);
+        setBatchOne(batchOneArt);
         setFeaturedPost(batchTwo);
         setLatestArticle(myData[0])
       })
@@ -41,7 +46,6 @@ function App() {
     axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,LTC,XRP,ADA&tsyms=USD,EUR')
       .then(res => {
         const myData = res.data.DISPLAY;
-        console.log(myData)
         setPriceData(myData);
       })
       .catch(err => {
@@ -107,62 +111,25 @@ function App() {
 //       header.classList.remove("sticky");
 //     }
 // }
-
+//  BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed
   return (
     <div className="App">
-      <header>
-        <div className="logo-wrapper">
-          <h1>CND</h1>
-        </div>
-      </header>
-
-
-        {
-          priceData ? <ChartComp 
-            priceData = { priceData }
-            BTCprice = { BTCprice }
-            ETHprice = { ETHprice }
-            LTCprice = { LTCprice }
-            XRPprice = { XRPprice }
-
-            BTCpriceFeed = { BTCpriceFeed }
-            ETHpriceFeed = { ETHpriceFeed }
-            LTCpriceFeed = { LTCpriceFeed }
-            XRPpriceFeed = { XRPpriceFeed }
-          /> :  <img
-                    src={ require('./assets/Ellipsis-3.4s-167px.svg') }
-                    alt="Loading..."
-                    className="loading-spinner"
-                />
-        }
-
-          <div className="article-feed">
-            { latestArticle ? articleCollection.map(article => {
-              return <Article 
-                      latestArticle = {latestArticle.id}
-                      source={ article.source_info.name }
-                      date={ article.published_on }
-                      title={article.title}
-                      url={ article.guid }  
-                      img={ article.imageurl }
-                      preview={ article.body }
-                      id={ article.id }
-                      key={ article.id }
-                    />
-            }) : <div className="loading-page">
-                  <img
-                    src={ require('./assets/Ellipsis-3.4s-167px.svg') }
-                    alt="Loading..."
-                    className="loading-spinner"
-                  />
-                </div>}
-          </div>
-          {
-            featuredPost ? <FeaturedArticles 
-              featuredPost = { featuredPost }
-            /> : null
-          }
-          <Footer />
+      <priceContext.Provider value={priceData}>
+      <priceFeedContext.Provider value={{ BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed }}>
+      <articleContext.Provider value={{ batchOne, latestArticle }}>
+        <Header />
+        <Switch>
+          <Route exact path="/" />
+          <Route path="/Article" component={Article} />
+          <Route path="/Charts" component={ChartComp} />
+          <Redirect to="/" />
+        </Switch>
+        <ChartComp />
+        <Article />
+        <Footer />
+      </articleContext.Provider>
+      </priceFeedContext.Provider>
+      </priceContext.Provider>
     </div>
   );
 }

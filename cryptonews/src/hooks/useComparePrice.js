@@ -3,52 +3,66 @@ import {useState, useEffect} from 'react';
 function useComparePrice(stats, coin) {
     const [check, setCheck] = useState()
     const sortThroughPrice = (diff, coin) => {
-        if (coin) {
-            let rawDiff = diff.split(' ').splice(1).join();
-            let parsedDiff = parseFloat(rawDiff);
+        if (diff) {
             switch(coin) {
                 case "BTC":
-                    if (parsedDiff < 0) {
+                    let currentBTC = diff.BTC.USD.CHANGE24HOUR;
+                    let rawDiffBTC = currentBTC.split(' ').splice(1).join();
+                    let parsedDiffBTC = parseFloat(rawDiffBTC);
+                    if (parsedDiffBTC < 0) {
                         return setCheck("DOWN");
-                    } else if (parsedDiff > 0) {
+                    } else if (parsedDiffBTC > 0) {
                         return setCheck("UP");
                     } else {
                         return setCheck('naww..')
                     }
+                    break;
                 case "ETH":
-                    if (parsedDiff < 0) {
+                    let currentETH = diff.ETH.USD.CHANGE24HOUR;
+                    let rawDiffETH = currentETH.split(' ').splice(1).join();
+                    let parsedDiffETH = parseFloat(rawDiffETH);
+                    if (parsedDiffETH < 0) {
                         return setCheck("DOWN");
-                    } else if (parsedDiff > 0) {
+                    } else if (parsedDiffETH > 0) {
                         return setCheck("UP");
                     } else {
                         return setCheck('naww..')
                     }
+                    break;
                 case "LTC":
-                    if (parsedDiff < 0) {
+                    let currentLTC = diff.LTC.USD.CHANGE24HOUR;
+                    let rawDiffLTC = currentLTC.split(' ').splice(1).join();
+                    let parsedDiffLTC = parseFloat(rawDiffLTC);
+                    if (parsedDiffLTC < 0) {
                         return setCheck("DOWN");
-                    } else if (parsedDiff > 0) {
+                    } else if (parsedDiffLTC > 0) {
                         return setCheck("UP");
                     } else {
                         return setCheck('naww..')
                     }
+                    break;
                 case "XRP":
-                    if (parsedDiff < 0) {
+                    let currentXRP = diff.XRP.USD.CHANGE24HOUR;
+                    let rawDiffXRP = currentXRP.split(' ').splice(1).join();
+                    let parsedDiffXRP = parseFloat(rawDiffXRP);
+                    if (parsedDiffXRP < 0) {
                         return setCheck("DOWN");
-                    } else if (parsedDiff > 0) {
+                    } else if (parsedDiffXRP > 0) {
                         return setCheck("UP");
                     } else {
                         return setCheck('naww..')
                     }
+                    break;
                 default:
                     break;
             }; 
         }
+        return;
     }
     useEffect(() => {
-        const diff = stats.CHANGE24HOUR
-        sortThroughPrice(diff, coin)
+        sortThroughPrice(stats,coin);
     }, [stats, coin])  
-    return [check, sortThroughPrice];
+    return [check, setCheck];
 }
 
 export default useComparePrice;

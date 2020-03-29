@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Chart from "chart.js";
 import { Line } from 'react-chartjs-2';
 import useComparePrice from '../hooks/useComparePrice.js';
 import useHistData from '../hooks/useHistData.js';
 import useClosingPrice from '../hooks/useClosingPrice.js';
+import priceContext from '../contexts/priceContext';
+import priceFeedContext from '../contexts/priceFeedContext';
 
+// GLOBAL SETTINGS FOR CHARTS.JS
 Chart.defaults.global.defaultFontColor = "rgba(0, 0, 0, 0)";
 Chart.defaults.global.defaultColor = "rgb(0, 0, 0)";
 Chart.defaults.global.elements.line.tension = 0;
 Chart.defaults.global.tooltips.enabled = false;
 
-const ChartComp = props => {
-    const priceData = props.priceData;
-    const [BTCcheck] = useComparePrice(priceData.BTC.USD,"BTC");
-    const [ETHcheck] = useComparePrice(priceData.ETH.USD,"ETH");
-    const [LTCcheck] = useComparePrice(priceData.LTC.USD,"LTC");
-    const [XRPcheck] = useComparePrice(priceData.XRP.USD,"XRP");
-
-    const [BTCHistData] = useHistData(props.BTCpriceFeed)
-    const [ETHHistData] = useHistData(props.ETHpriceFeed)
-    const [LTCHistData] = useHistData(props.LTCpriceFeed)
-    const [XRPHistData] = useHistData(props.XRPpriceFeed)
-
-    const [BTCCloseing] = useClosingPrice(props.BTCpriceFeed);
-    const [ETHCloseing] = useClosingPrice(props.ETHpriceFeed);
-    const [LTCCloseing] = useClosingPrice(props.LTCpriceFeed);
-    const [XRPCloseing] = useClosingPrice(props.XRPpriceFeed);
+const ChartComp = () => {
+    const priceData = useContext(priceContext);
+    // CHECKS IF CURRENCY IS UP OR DOWN FROM THE LAST 24HRS
+    const [BTCcheck, setBTCcheck] = useComparePrice(priceData, "BTC");
+    const [ETHcheck, setETHcheck ] = useComparePrice(priceData, "ETH");
+    const [LTCcheck, setLTCcheck] = useComparePrice(priceData, "LTC");
+    const [XRPcheck, setXRPcheck] = useComparePrice(priceData, "XRP");
+    // CREATES AND FORMATS TIMES FOR EACH PRICE SET
+    const { BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed } = useContext(priceFeedContext);
+    const [BTCHistData, setBTCHistData] = useHistData(BTCpriceFeed);
+    const [ETHHistData, setETHHistData] = useHistData(ETHpriceFeed);
+    const [LTCHistData, setLTCHistData] = useHistData(LTCpriceFeed);
+    const [XRPHistData, setXRPHistData] = useHistData(XRPpriceFeed);
+    // GRABS THE CLOSING PRICE FROM THE LAST 24HRS
+    const [BTCCloseing, setBTCCloseing] = useClosingPrice(BTCpriceFeed);
+    const [ETHCloseing, setETHCloseing] = useClosingPrice(ETHpriceFeed);
+    const [LTCCloseing, setLTCCloseing] = useClosingPrice(LTCpriceFeed);
+    const [XRPCloseing, setXRPCloseing] = useClosingPrice(XRPpriceFeed);
 
     const [chartBTC, setBTCChart] = useState({
         chartBTC: {
@@ -99,7 +104,7 @@ const ChartComp = props => {
     }
     })
 
-    useEffect(() => {   
+    useEffect(() => {
             setBTCChart({
                 chartBTC: {
                     labels: BTCHistData,
@@ -149,11 +154,11 @@ const ChartComp = props => {
                 }
             })
             
-    },[BTCHistData, BTCCloseing, ETHHistData, ETHCloseing, LTCHistData, LTCCloseing, XRPHistData, XRPCloseing])
+    },[priceData, BTCpriceFeed, BTCHistData, BTCCloseing, ETHpriceFeed, ETHHistData, ETHCloseing, LTCpriceFeed, LTCHistData, LTCCloseing, XRPpriceFeed, XRPHistData, XRPCloseing])
 
     return (
         <div className="chart">
-
+        { priceData ? <div>
             <div className="container">
                 <div className="stats-container">
                     <h1>BTC</h1>
@@ -167,7 +172,7 @@ const ChartComp = props => {
                     {
                         BTCcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
                     }
-                    <span className="current-price">$ { props.BTCprice }</span>       
+                    <span className="current-price">{ priceData.BTC.USD.PRICE }</span>       
                 </div>
                 <div className="chart-container">
                     { 
@@ -194,7 +199,7 @@ const ChartComp = props => {
                     {
                         ETHcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
                     }      
-                    <span className="current-price">$ { props.ETHprice }</span>
+                    <span className="current-price">{ priceData.ETH.USD.PRICE }</span>
                 </div>
                 <div className="chart-container">
                     { 
@@ -221,7 +226,7 @@ const ChartComp = props => {
                     {
                         LTCcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
                     }       
-                    <span className="current-price">$ { props.LTCprice }</span>
+                    <span className="current-price">{ priceData.LTC.USD.PRICE }</span>
                 </div>
                 <div className="chart-container">
                     { 
@@ -247,7 +252,7 @@ const ChartComp = props => {
                     {
                         XRPcheck === "UP" ? <img src={ require('../assets/up.svg') } alt="UP" className="arrow up" /> : <img src={ require('../assets/down.svg') }alt="UP" className="arrow" />
                     }       
-                    <span className="current-price">$ { props.XRPprice }</span>
+                    <span className="current-price">{ priceData.XRP.USD.PRICE }</span>
                 </div>
                 <div className="chart-container">
                     { 
@@ -260,6 +265,12 @@ const ChartComp = props => {
                     }  
                 </div>
             </div>
+            </div> : <img
+              src={ require('../assets/Ellipsis-3.4s-167px.svg') }
+              alt="Loading..."
+              className="loading-spinner"
+            />
+        }
         </div>
     )
 }
