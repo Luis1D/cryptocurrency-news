@@ -10,7 +10,6 @@ const Article = () => {
         id: ""
     });
     const [open, setOpen] = useState("closed");
-
     const previewArticle = (preArticle) => {
         setPreview({ 
             title: preArticle.source,
@@ -18,7 +17,6 @@ const Article = () => {
             url: preArticle.guid,
             id: preArticle.id
         });
-        console.log(preview.url)
         if(preview.body.length > 0) {
             setOpen("closed");
             setPreview({
@@ -31,7 +29,6 @@ const Article = () => {
             setOpen("opened");
         }
     }
-
     return (
         <div className="article-feed">
 

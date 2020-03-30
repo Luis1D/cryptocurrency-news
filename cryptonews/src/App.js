@@ -5,6 +5,7 @@ import Header from './components/Header.js';
 import Article from './components/Article.js';
 import ChartComp from './components/ChartComp';
 import FeaturedArticles from './components/FeaturedArticles';
+import Home from './components/Home';
 import Footer from './components/Footer';
 import priceContext from './contexts/priceContext';
 import articleContext from './contexts/articleContext';
@@ -119,13 +120,11 @@ function App() {
       <articleContext.Provider value={{ batchOne, latestArticle }}>
         <Header />
         <Switch>
-          <Route exact path="/" />
+          <Route exact path="/" component={Home}/>
           <Route path="/Article" component={Article} />
           <Route path="/Charts" component={ChartComp} />
           <Redirect to="/" />
         </Switch>
-        {/* <ChartComp />
-        <Article /> */}
         <Footer />
       </articleContext.Provider>
       </priceFeedContext.Provider>
