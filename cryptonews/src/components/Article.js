@@ -1,31 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import articleContext from '../contexts/articleContext';
 
-const Article = props => {
+const Article = () => {
     const { batchOne, latestArticle } = useContext(articleContext);
     const [preview, setPreview] = useState({
         title: "",
+        body: "",
+        url: "",
         id: ""
     });
     const [open, setOpen] = useState("closed");
 
-    // UNIX DATE CONVERSION
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let date = new Date(props.date * 1000);
-    let year = date.getFullYear();
-    let month = months[date.getMonth()];
-    let day = date.getDate();
-    let hours = date.getHours();
-    let minutes = "0" + date.getMinutes();
-    let convertedDate = month + '-' + day + '-' + year + ' ' + hours + ':' + minutes.substr(-2);
-    
     const previewArticle = (preArticle) => {
-        const id = preArticle.id;
-        setPreview({ title: preArticle.body, id: id });
-        if(preview.title.length > 0) {
+        setPreview({ 
+            title: preArticle.source,
+            body: preArticle.body,
+            url: preArticle.guid,
+            id: preArticle.id
+        });
+        console.log(preview.url)
+        if(preview.body.length > 0) {
             setOpen("closed");
             setPreview({
                 title: "",
+                body: "",
+                url: "",
                 id: ""
             });
         } else {
@@ -42,7 +41,6 @@ const Article = props => {
                 return <div className={ latestArticle === article.id ? "latest-article" : "Article"} onClick={ () => previewArticle(article) } key={ article.id }>
                             <div className="article-header">
                                 <h2>{ article.source_info.name }</h2>
-                                <h3>{ convertedDate }</h3>
                             </div>
                             <div className="title-img-container">
                                 <div className="container">
@@ -56,16 +54,14 @@ const Article = props => {
                                     : null
                                 }                
                             </div>
-
-                            {
-                                preview ?
-                                    <div className={ open }>
-                                        <div className="preview-container">
-                                            <h1 className="preview-header">Preview</h1>
-                                            <p className="preview-text">> { preview.title }</p>
-                                            <a href={ article.guid } target="_blank" rel="noopener noreferrer">Read More...</a>
-                                        </div>
-                                    </div> : null
+                            { preview.url.length !== 0 ?
+                            <div className={ open }>
+                                <div className="preview-container">
+                                    <h1 className="preview-header">{ preview.title }</h1>
+                                    <p className="preview-text">> { preview.body }</p>
+                                    <a href={ preview.url } target="_blank" rel="noopener noreferrer">Read More...</a>
+                                </div>
+                            </div> : null
                             }
                 </div>
             }) : <div className="loading-page">

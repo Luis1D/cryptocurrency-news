@@ -124,8 +124,8 @@ function App() {
           <Route path="/Charts" component={ChartComp} />
           <Redirect to="/" />
         </Switch>
-        <ChartComp />
-        <Article />
+        {/* <ChartComp />
+        <Article /> */}
         <Footer />
       </articleContext.Provider>
       </priceFeedContext.Provider>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 function useDateConversion(date) {
+    console.log(date)
     const [myDate, setDate] = useState()
     const convertDate = num => {
         let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -15,7 +16,7 @@ function useDateConversion(date) {
     }
     useEffect(() => {
         convertDate(date);
-    },[date, convertDate])
+    },[date])
     return [myDate, convertDate];
 }
 

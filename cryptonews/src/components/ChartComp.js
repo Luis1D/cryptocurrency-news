@@ -158,7 +158,7 @@ const ChartComp = () => {
 
     return (
         <div className="chart">
-        { priceData ? <div>
+        { priceData ? <div className="chart-grid">
             <div className="container">
                 <div className="stats-container">
                     <h1>BTC</h1>
