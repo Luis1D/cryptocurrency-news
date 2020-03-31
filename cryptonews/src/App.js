@@ -1,12 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
+
 import Header from './components/Header.js';
 import Article from './components/Article.js';
 import ChartComp from './components/ChartComp';
 import FeaturedArticles from './components/FeaturedArticles';
 import Home from './components/Home';
+import ChartSection from './components/ChartSection.js';
 import Footer from './components/Footer';
+import TickerWidget from './components/TickerWidget';
+import MarOverWidget from './components/MarOverWidget';
+
 import priceContext from './contexts/priceContext';
 import articleContext from './contexts/articleContext';
 import priceFeedContext from './contexts/priceFeedContext';
@@ -33,7 +38,7 @@ function App() {
     axios.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
       .then(res => {
         const myData = res.data.Data;
-        const batchOneArt = myData.slice(0,4);
+        const batchOneArt = myData.slice(0,6);
         const batchTwo = myData.slice(5,8);
         setBatchOne(batchOneArt);
         setFeaturedPost(batchTwo);
@@ -119,12 +124,15 @@ function App() {
       <priceFeedContext.Provider value={{ BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed }}>
       <articleContext.Provider value={{ batchOne, latestArticle }}>
         <Header />
-        <Switch>
+        <TickerWidget />
+        {/* <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/Article" component={Article} />
-          <Route path="/Charts" component={ChartComp} />
+          <Route path="/Charts" component={ChartSection} />
           <Redirect to="/" />
-        </Switch>
+        </Switch> */}
+        <Article />
+        <MarOverWidget />
         <Footer />
       </articleContext.Provider>
       </priceFeedContext.Provider>

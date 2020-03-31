@@ -68,7 +68,6 @@ const Article = () => {
                     className="loading-spinner"
                   />
                 </div>}
-            }
         </div>
     )
 }
