@@ -1,9 +1,22 @@
 #Header {
+
     .nav-container {
         width: 40rem;
+        height: 2rem;
         display: flex;
-        font-size: 1.25rem;
+        font-size: .90rem;
         text-transform: uppercase;
         justify-content: space-evenly;
+        align-items: center;
+    }
+    .nav-link {
+        color: rgb(211, 223, 238);
+        font-weight: bold;
+        border-bottom: 1px solid rgb(61, 61, 61);
+        border-top: 1px solid rgb(61, 61, 61);
+        // background-color: #000;
+        padding: .30rem;
+        border-radius: .15rem;
+        letter-spacing: .2rem;
     }
 }
