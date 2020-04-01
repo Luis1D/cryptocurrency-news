@@ -38,6 +38,7 @@ const Article = () => {
                 return <div className={ latestArticle === article.id ? "latest-article" : "Article"} onClick={ () => previewArticle(article) } key={ article.id }>
                             <div className="article-header">
                                 <h2>{ article.source_info.name }</h2>
+                                <h3 className="categories">{ article.categories }</h3>
                             </div>
                             <div className="title-img-container">
                                 <div className="container">

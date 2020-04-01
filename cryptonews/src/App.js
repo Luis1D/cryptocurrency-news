@@ -11,6 +11,7 @@ import ChartSection from './components/ChartSection.js';
 import Footer from './components/Footer';
 import TickerWidget from './components/TickerWidget';
 import MarOverWidget from './components/MarOverWidget';
+import LatestArticle from './components/LatestArticle';
 
 import priceContext from './contexts/priceContext';
 import articleContext from './contexts/articleContext';
@@ -38,11 +39,12 @@ function App() {
     axios.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
       .then(res => {
         const myData = res.data.Data;
-        const batchOneArt = myData.slice(0,6);
+        const latestArt = myData.slice(0,1);
+        const batchOneArt = myData.slice(1,7);
         const batchTwo = myData.slice(5,8);
         setBatchOne(batchOneArt);
         setFeaturedPost(batchTwo);
-        setLatestArticle(myData[0])
+        setLatestArticle(latestArt);
       })
       .catch(err => {
           console.log("ERROR: ", err);
@@ -131,6 +133,7 @@ function App() {
           <Route path="/Charts" component={ChartSection} />
           <Redirect to="/" />
         </Switch> */}
+        <LatestArticle />
         <Article />
         <MarOverWidget />
         <Footer />
