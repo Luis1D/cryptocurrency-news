@@ -134,8 +134,10 @@ function App() {
           <Redirect to="/" />
         </Switch> */}
         <LatestArticle />
-        <Article />
-        <MarOverWidget />
+        <div className="main-body-flex">
+          <MarOverWidget />
+          <Article />
+        </div>
         <Footer />
       </articleContext.Provider>
       </priceFeedContext.Provider>
