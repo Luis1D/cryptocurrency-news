@@ -88,8 +88,8 @@ const MarOverWidget = () => {
     },[])
     return (
         <div id="MarOverWidget">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
+            <div className="tradingview-widget-container">
+                <div className="tradingview-widget-container__widget"></div>
             </div>
         </div>
     )

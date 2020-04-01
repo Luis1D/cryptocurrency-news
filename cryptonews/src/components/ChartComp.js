@@ -16,21 +16,21 @@ Chart.defaults.global.tooltips.enabled = false;
 const ChartComp = () => {
     const priceData = useContext(priceContext);
     // CHECKS IF CURRENCY IS UP OR DOWN FROM THE LAST 24HRS
-    const [BTCcheck, setBTCcheck] = useComparePrice(priceData, "BTC");
-    const [ETHcheck, setETHcheck ] = useComparePrice(priceData, "ETH");
-    const [LTCcheck, setLTCcheck] = useComparePrice(priceData, "LTC");
-    const [XRPcheck, setXRPcheck] = useComparePrice(priceData, "XRP");
+    const [BTCcheck] = useComparePrice(priceData, "BTC");
+    const [ETHcheck] = useComparePrice(priceData, "ETH");
+    const [LTCcheck] = useComparePrice(priceData, "LTC");
+    const [XRPcheck] = useComparePrice(priceData, "XRP");
     // CREATES AND FORMATS TIMES FOR EACH PRICE SET
     const { BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed } = useContext(priceFeedContext);
-    const [BTCHistData, setBTCHistData] = useHistData(BTCpriceFeed);
-    const [ETHHistData, setETHHistData] = useHistData(ETHpriceFeed);
-    const [LTCHistData, setLTCHistData] = useHistData(LTCpriceFeed);
-    const [XRPHistData, setXRPHistData] = useHistData(XRPpriceFeed);
+    const [BTCHistData] = useHistData(BTCpriceFeed);
+    const [ETHHistData] = useHistData(ETHpriceFeed);
+    const [LTCHistData] = useHistData(LTCpriceFeed);
+    const [XRPHistData] = useHistData(XRPpriceFeed);
     // GRABS THE CLOSING PRICE FROM THE LAST 24HRS
-    const [BTCCloseing, setBTCCloseing] = useClosingPrice(BTCpriceFeed);
-    const [ETHCloseing, setETHCloseing] = useClosingPrice(ETHpriceFeed);
-    const [LTCCloseing, setLTCCloseing] = useClosingPrice(LTCpriceFeed);
-    const [XRPCloseing, setXRPCloseing] = useClosingPrice(XRPpriceFeed);
+    const [BTCCloseing] = useClosingPrice(BTCpriceFeed);
+    const [ETHCloseing] = useClosingPrice(ETHpriceFeed);
+    const [LTCCloseing] = useClosingPrice(LTCpriceFeed);
+    const [XRPCloseing] = useClosingPrice(XRPpriceFeed);
 
     const [chartBTC, setBTCChart] = useState({
         chartBTC: {

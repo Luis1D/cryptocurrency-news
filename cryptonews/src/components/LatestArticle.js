@@ -3,7 +3,6 @@ import articleContext from '../contexts/articleContext.js';
 
 const LatestArticle = () => {
     const {latestArticle} = useContext(articleContext);
-    console.log(latestArticle)
     return (
         <div id="LatestArticle">
         { latestArticle ?
