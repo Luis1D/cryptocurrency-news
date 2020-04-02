@@ -127,12 +127,6 @@ function App() {
       <articleContext.Provider value={{ batchOne, latestArticle }}>
         <Header />
         <TickerWidget />
-        {/* <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/Article" component={Article} />
-          <Route path="/Charts" component={ChartSection} />
-          <Redirect to="/" />
-        </Switch> */}
         <LatestArticle />
         <div className="main-body-flex">
           <MarOverWidget />

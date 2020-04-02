@@ -1,8 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import articleContext from '../contexts/articleContext.js';
+import useDecodeHTML from '../hooks/useDecodeHTML.js';
 
 const LatestArticle = () => {
     const {latestArticle} = useContext(articleContext);
+    const [decode, setDecode] = useDecodeHTML();
+    
+    useEffect(() => {
+        if(latestArticle) {
+            setDecode(latestArticle[0].body);
+        }
+    },[latestArticle])
+
     return (
         <div id="LatestArticle">
         { latestArticle ?
@@ -13,7 +22,7 @@ const LatestArticle = () => {
                 <div className="title-img-container">
                     <div className="container">
                         <h1 className="article-title">{ latestArticle[0].title }</h1>
-                        <p className="body">{ latestArticle[0].body }</p>
+                        <p className="body">{ decode }</p>
                     </div>
                     <div className="latest-article-img">
                         <img src={ latestArticle[0].imageurl } alt="latest"/>

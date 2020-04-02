@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import articleContext from '../contexts/articleContext';
+import useDecodeHTML from '../hooks/useDecodeHTML.js';
 
 const Article = () => {
     const { batchOne, latestArticle } = useContext(articleContext);
+    const [decode, setDecode] = useDecodeHTML("");
     const [preview, setPreview] = useState({
         title: "",
         body: "",
@@ -11,27 +13,21 @@ const Article = () => {
     });
     const [open, setOpen] = useState("closed");
     const previewArticle = (preArticle) => {
-        setPreview({ 
-            title: preArticle.source,
-            body: preArticle.body,
-            url: preArticle.guid,
-            id: preArticle.id
-        });
-        if(preview.body.length > 0) {
+        setDecode(preArticle.body)
+        if(open === "opened") {
             setOpen("closed");
-            setPreview({
-                title: "",
-                body: "",
-                url: "",
-                id: ""
-            });
         } else {
             setOpen("opened");
+            setPreview({
+                title: preArticle.source,
+                body: decode,
+                url: preArticle.url,
+                id: preArticle.id
+            })
         }
     }
     return (
         <div className="article-feed">
-
             {
             batchOne ?
             batchOne.map(article => {
@@ -56,7 +52,7 @@ const Article = () => {
                             <div className={ open }>
                                 <div className="preview-container">
                                     <h1 className="preview-header">{ preview.title }</h1>
-                                    <p className="preview-text">> { preview.body }</p>
+                                    <p className="preview-text">> { decode }</p>
                                     <a href={ preview.url } target="_blank" rel="noopener noreferrer">Read More...</a>
                                 </div>
                             </div> : null

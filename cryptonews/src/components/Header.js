@@ -1,4 +1,5 @@
 import React from 'react';
+import Search from './Search';
 // import { NavLink } from 'react-router-dom';
 
 const Header = () => {
@@ -8,6 +9,7 @@ const Header = () => {
                 <div className="logo-wrapper">
                     <h1>CND</h1>
                 </div>
+                {/* <Search /> */}
                 {/* <div className="nav-container">
                     <NavLink className="nav-link" to="/">Home</NavLink>
                     <NavLink className="nav-link" to="/Article">Articles</NavLink>
