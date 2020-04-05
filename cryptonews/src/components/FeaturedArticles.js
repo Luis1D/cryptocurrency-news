@@ -11,6 +11,7 @@ const FeaturedArticles = props => {
                         <div className="text-container">
                             <h1>{ article.source }</h1> 
                             <h2>{ article.title }</h2>
+                            <button>Read More..</button>
                         </div>
                         <img
                             src={ article.imageurl }

@@ -23,6 +23,7 @@ const LatestArticle = () => {
                     <div className="container">
                         <h1 className="article-title">{ latestArticle[0].title }</h1>
                         <p className="body">{ decode }</p>
+                        <a href={ latestArticle[0].guid } target="_blank" rel="noopener noreferrer" className="read-more">Read More..</a>
                     </div>
                     <div className="latest-article-img">
                         <img src={ latestArticle[0].imageurl } alt="latest"/>

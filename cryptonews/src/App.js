@@ -22,7 +22,7 @@ function App() {
   const [batchOne, setBatchOne] = useState();
   const [latestArticle, setLatestArticle] = useState();
   // const [featuredPost, setFeaturedPost] = useState();
-
+  const [newsArticles, setNewsArticles] = useState();
   const [priceData] = useState();
   // const [BTCprice, setBTCPrice] = useState();
   // const [ETHprice, setETHPrice] = useState();
@@ -41,6 +41,7 @@ function App() {
         const myData = res.data.Data;
         const latestArt = myData.slice(0,1);
         const batchOneArt = myData.slice(1,7);
+        setNewsArticles(myData);
         // const batchTwo = myData.slice(5,8);
         setBatchOne(batchOneArt);
         // setFeaturedPost(batchTwo);
@@ -124,7 +125,7 @@ function App() {
     <div className="App">
       <priceContext.Provider value={priceData}>
       <priceFeedContext.Provider value={{ BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed }}>
-      <articleContext.Provider value={{ batchOne, latestArticle }}>
+      <articleContext.Provider value={{ batchOne, latestArticle, newsArticles }}>
         <Header />
         <TickerWidget />
         <LatestArticle />

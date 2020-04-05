@@ -34,7 +34,7 @@ const Article = () => {
                 return <div className={ latestArticle === article.id ? "latest-article" : "Article"} onClick={ () => previewArticle(article) } key={ article.id }>
                             <div className="article-header">
                                 <h2>{ article.source_info.name }</h2>
-                                <h3 className="categories">{ article.categories }</h3>
+                                {/* <h3 className="categories">{ article.categories }</h3> */}
                             </div>
                             <div className="title-img-container">
                                 <div className="container">
@@ -53,7 +53,10 @@ const Article = () => {
                                 <div className="preview-container">
                                     <h1 className="preview-header">{ preview.title }</h1>
                                     <p className="preview-text">> { decode }</p>
-                                    <a href={ preview.url } target="_blank" rel="noopener noreferrer">Read More...</a>
+                                    <div className="link-container">
+                                        <a href={ preview.url } target="_blank" rel="noopener noreferrer">Read More...</a>
+                                        <button onClick={ () => setOpen(!open) } className="exit-btn">X</button>
+                                    </div>
                                 </div>
                             </div> : null
                             }
