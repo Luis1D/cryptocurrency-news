@@ -9,6 +9,7 @@ const Article = () => {
         title: "",
         body: "",
         url: "",
+        img: "",
         id: ""
     });
     const [open, setOpen] = useState("closed");
@@ -22,6 +23,7 @@ const Article = () => {
                 title: preArticle.source,
                 body: decode,
                 url: preArticle.url,
+                img: preArticle.imageurl,
                 id: preArticle.id
             })
         }
@@ -57,6 +59,8 @@ const Article = () => {
                                         <a href={ preview.url } target="_blank" rel="noopener noreferrer">Read More...</a>
                                         <button onClick={ () => setOpen(!open) } className="exit-btn">X</button>
                                     </div>
+                                    {/* <img src={ preview.img } alt="article photo" className="preview-photo" /> */}
+                                    {/* <div className="img-blend"></div> */}
                                 </div>
                             </div> : null
                             }
