@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import TickerWidget from './components/TickerWidget';
 import MarOverWidget from './components/MarOverWidget';
 import LatestArticle from './components/LatestArticle';
+import FilterArticles from './components/FilterArticles';
 
 import priceContext from './contexts/priceContext';
 import articleContext from './contexts/articleContext';
@@ -21,13 +22,10 @@ import './styles/app.scss';
 function App() {
   const [batchOne, setBatchOne] = useState();
   const [latestArticle, setLatestArticle] = useState();
-  // const [featuredPost, setFeaturedPost] = useState();
   const [newsArticles, setNewsArticles] = useState();
+  const [rawArticles, setRawArticles] = useState();
   const [priceData] = useState();
-  // const [BTCprice, setBTCPrice] = useState();
-  // const [ETHprice, setETHPrice] = useState();
-  // const [LTCprice, setLTCPrice] = useState();
-  // const [XRPprice, setXRPPrice] = useState();
+  
 
   const [BTCpriceFeed] = useState();
   const [ETHpriceFeed] = useState();
@@ -42,7 +40,7 @@ function App() {
         const latestArt = myData.slice(0,1);
         const batchOneArt = myData.slice(1,7);
         setNewsArticles(myData);
-        // const batchTwo = myData.slice(5,8);
+        setRawArticles(myData)
         setBatchOne(batchOneArt);
         // setFeaturedPost(batchTwo);
         setLatestArticle(latestArt);
@@ -125,12 +123,13 @@ function App() {
     <div className="App">
       <priceContext.Provider value={priceData}>
       <priceFeedContext.Provider value={{ BTCpriceFeed, ETHpriceFeed, LTCpriceFeed, XRPpriceFeed }}>
-      <articleContext.Provider value={{ batchOne, latestArticle, newsArticles }}>
+      <articleContext.Provider value={{ rawArticles, latestArticle, newsArticles, setNewsArticles }}>
         <Header />
         <TickerWidget />
         <LatestArticle />
         <div className="main-body-flex">
           <MarOverWidget />
+          <FilterArticles />
           <Article />
         </div>
         <Footer />

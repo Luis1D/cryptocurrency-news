@@ -6,7 +6,12 @@ const Header = () => {
         <div id="Header">
             <header>
                 <div className="logo-wrapper">
-                    <h1>CRPTOZ</h1>
+                    <img 
+                        src={ require('../assets/astronaut.svg') }
+                        alt="astronaut"
+                        className="astronaut-logo"
+                    />
+                    <h1>Crptoz</h1>
                 </div>
                 {/* <Search /> */}
             </header>

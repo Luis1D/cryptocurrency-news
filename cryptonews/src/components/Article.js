@@ -4,6 +4,7 @@ import useDecodeHTML from '../hooks/useDecodeHTML.js';
 
 const Article = () => {
     const { newsArticles, latestArticle } = useContext(articleContext);
+    console.log(newsArticles);
     const [decode, setDecode] = useDecodeHTML("");
     const [preview, setPreview] = useState({
         title: "",
@@ -66,6 +67,11 @@ const Article = () => {
                             }
                 </div>
             }) : <div className="loading-page">
+                    <img 
+                        src={ require('../assets/astronaut.svg') }
+                        alt="logo"
+                        className="astronaut-logo"
+                    />
                     <h1>CRPTOZ</h1>
                   <img
                     src={ require('../assets/Ellipsis-3.4s-167px.svg') }
