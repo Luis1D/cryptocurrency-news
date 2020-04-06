@@ -3,7 +3,7 @@ import articleContext from '../contexts/articleContext';
 import useDecodeHTML from '../hooks/useDecodeHTML.js';
 
 const Article = () => {
-    const { batchOne, latestArticle } = useContext(articleContext);
+    const { newsArticles, latestArticle } = useContext(articleContext);
     const [decode, setDecode] = useDecodeHTML("");
     const [preview, setPreview] = useState({
         title: "",
@@ -29,8 +29,8 @@ const Article = () => {
     return (
         <div className="article-feed">
             {
-            batchOne ?
-            batchOne.map(article => {
+            newsArticles ?
+            newsArticles.map(article => {
                 return <div className={ latestArticle === article.id ? "latest-article" : "Article"} onClick={ () => previewArticle(article) } key={ article.id }>
                             <div className="article-header">
                                 <h2>{ article.source_info.name }</h2>
@@ -62,6 +62,7 @@ const Article = () => {
                             }
                 </div>
             }) : <div className="loading-page">
+                    <h1>CRPTOZ</h1>
                   <img
                     src={ require('../assets/Ellipsis-3.4s-167px.svg') }
                     alt="Loading..."

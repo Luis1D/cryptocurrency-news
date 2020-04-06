@@ -127,9 +127,9 @@
 .article-feed {
     display: flex;
     flex-direction: column;
+    flex-flow: wrap;
     @media(min-width: 750px) {
-        // display: grid;
-        // grid-template-columns: 1fr;
+        
     }
     @media(min-width: 1300px) {
         width: 80rem;
@@ -139,10 +139,15 @@
     //     grid-template-columns: 1fr 1fr 1fr;
     // }
     .loading-page {
+        position: fixed;
+        width: 100%;
+        background-color: #000;
+        left: 0;
+        top: 0;
+        height: 100%;
         color: #fff;
         text-align: center;
-        grid-column-start: 1;
-        grid-column-end: 4;
+        padding-top: 10%;
     }
 }
 .Article {
@@ -157,9 +162,9 @@
     background-color: #0005;
     background-color: rgba(0, 0, 0, 0.315);
     box-shadow: inset 0 0 5rem .5rem rgb(0, 0, 0);
-    // @media(min-width: 675px) {
-    //     width: 20rem;
-    // }
+    @media(min-width: 675px) {
+        width: 20rem;
+    }
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.5);
