@@ -4,7 +4,6 @@ import useDecodeHTML from '../hooks/useDecodeHTML.js';
 
 const Article = () => {
     const { newsArticles, latestArticle } = useContext(articleContext);
-    console.log(newsArticles);
     const [decode, setDecode] = useDecodeHTML("");
     const [preview, setPreview] = useState({
         title: "",

@@ -1,5 +1,5 @@
 import React from 'react';
-// import Search from './Search';
+import Search from './Search';
 
 const Header = () => {
     return (
@@ -13,7 +13,7 @@ const Header = () => {
                     />
                     <h1>Crptoz</h1>
                 </div>
-                {/* <Search /> */}
+                <Search />
             </header>
         </div>
     )

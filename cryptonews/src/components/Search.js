@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import articleContext from '../contexts/articleContext';
 
 const Search = () => {
-    const { batchOne } = useContext(articleContext);
+    const {  rawArticles, setNewsArticles } = useContext(articleContext)
     const [filter, setFilter] = useState("");
     
     const handleChange = (e) => {
@@ -11,7 +11,10 @@ const Search = () => {
     }
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(filter);
+        const filteredList = rawArticles.filter(item => {
+            return item.body.includes(filter);    
+        })
+        setNewsArticles(filteredList);
     }
     return (
         <div id="Search">

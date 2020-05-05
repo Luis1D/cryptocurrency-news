@@ -4,6 +4,10 @@
     width: 95%;
     margin: 0 auto;
     margin-top: 1rem;
+    background-color: #000;
+    @media(min-width: 900px) {
+        width: 50rem;
+    }
     .btn-container {
         display: flex;
         justify-content: space-evenly;

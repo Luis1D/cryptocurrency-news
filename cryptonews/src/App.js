@@ -20,13 +20,12 @@ import priceFeedContext from './contexts/priceFeedContext';
 import './styles/app.scss';
 
 function App() {
+  // STATE
   const [batchOne, setBatchOne] = useState();
   const [latestArticle, setLatestArticle] = useState();
   const [newsArticles, setNewsArticles] = useState();
   const [rawArticles, setRawArticles] = useState();
   const [priceData] = useState();
-  
-
   const [BTCpriceFeed] = useState();
   const [ETHpriceFeed] = useState();
   const [LTCpriceFeed] = useState();
